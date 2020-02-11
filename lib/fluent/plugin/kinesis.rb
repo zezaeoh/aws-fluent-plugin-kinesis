@@ -15,6 +15,7 @@
 require 'fluent/plugin/output'
 require 'fluent/plugin/kinesis_helper/client'
 require 'fluent/plugin/kinesis_helper/api'
+require 'fluent/msgpack_factory'
 require 'zlib'
 
 module Fluent
@@ -136,7 +137,7 @@ module Fluent
       def write_records_batch(chunk, &block)
         unique_id = chunk.dump_unique_id_hex(chunk.unique_id)
         chunk.open do |io|
-          records = msgpack_unpacker(io).to_enum
+          records = Fluent::MessagePackFactory.msgpack_unpacker(io).to_enum
           split_to_batches(records) do |batch, size|
             log.debug(sprintf "Write chunk %s / %3d records / %4d KB", unique_id, batch.size, size/1024)
             batch_request_with_retry(batch, &block)

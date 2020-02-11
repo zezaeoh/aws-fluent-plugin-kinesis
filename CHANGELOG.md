@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 3.2.1
+
+Change unpacker method to avoid deprecated msg
+
 ## 3.2.0
 
 - Feature - Add placeholder support for stream names to send records to multiple streams : [#165](https://github.com/awslabs/aws-fluent-plugin-kinesis/issues/165) [#174](https://github.com/awslabs/aws-fluent-plugin-kinesis/pull/174)
